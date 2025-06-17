@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- 页面标题 -->
+  <title>个人简历 - 林潼恩</title>
+  <style>
+    /* 全局样式初始化 */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "微软雅黑", sans-serif;
+    }
+
+    body {
+      background-color: #f4f4f4;
+      padding: 20px;
+      color: #333;
+      animation: fadeIn 0.8s ease-in-out;
+      background-image: 
+        radial-gradient(circle at 20px 20px, rgba(0, 120, 212, 0.02) 1px, transparent 1px),
+        radial-gradient(circle at 40px 40px, rgba(0, 120, 212, 0.02) 1px, transparent 1px);
+      background-size: 80px 80px;
+    }
+
+    /* 淡入动画 */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* 简历整体容器 */
+    .resume-container {
+      width: 700px;
+      margin: 0 auto;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      transition: transform 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .resume-container::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, #0078d4, #0ea5e9, #0078d4);
+      animation: borderShine 5s linear infinite;
+      background-size: 200% 100%;
+    }
+
+    @keyframes borderShine {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    .resume-container:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+
+    /* 头部区域 */
+    .header {
+      display: flex;
+      align-items: center;
+      padding: 20px 30px;
+      border-bottom: 2px solid #ccc;
+      transition: all 0.3s ease;
+    }
+
+    .header:hover {
+      background-color: #f9f9f9;
+    }
+
+    .header .avatar {
+      width: 130px;
+      height: 180px;
+      border-radius: 6px;
+      overflow: hidden;
+      margin-right: 20px;
+      transition: transform 0.5s ease;
+    }
+
+    .header .avatar:hover {
+      transform: scale(1.05);
+    }
+
+    .header .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: filter 0.3s ease;
+    }
+
+    .header .avatar img:hover {
+      filter: brightness(1.05);
+    }
+
+    .header .name-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .header .name-info h1 {
+      font-size: 22px;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .header .name-info .job-intent {
+      font-size: 14px;
+      color: #666;
+    }
+
+    .header .resume-btn {
+      margin-left: auto;
+      background-color: #0078d4;
+      color: #fff;
+      padding: 6px 12px;
+      border-radius: 4px;
+      text-decoration: none;
+      font-size: 14px;
+      align-self: center;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .header .resume-btn::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.3) 50%,
+        rgba(255, 255, 255, 0) 100%
+      );
+      transform: rotate(30deg);
+      transition: transform 0.6s ease;
+    }
+
+    .header .resume-btn:hover::before {
+      transform: rotate(30deg) translateX(100%);
+    }
+
+    .header .resume-btn:hover {
+      background-color: #005a9e;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    /* 个人信息栏 */
+    .info-bar {
+      display: flex;
+      padding: 10px 20px;
+      border-bottom: 1px solid #ccc;
+      align-items: flex-start;
+      transition: all 0.3s ease;
+    }
+
+    .info-bar:hover {
+      background-color: #f9f9f9;
+    }
+
+    .info-bar .left-column,
+    .info-bar .right-column {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .info-bar .right-column {
+      align-items: flex-end;
+    }
+
+    .info-bar .info-item {
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+      margin-bottom: 5px;
+      transition: transform 0.2s ease;
+    }
+
+    .info-bar .info-item:hover {
+      transform: translateX(5px);
+    }
+
+    .info-bar .right-column .info-item:hover {
+      transform: translateX(-5px);
+    }
+
+    .info-bar .info-item i {
+      margin-right: 8px;
+      color: #0078d4;
+      width: 16px;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+
+    .info-bar .info-item:hover i {
+      transform: rotate(360deg);
+    }
+
+    /* 各模块通用标题 */
+    .section-title {
+      background-color: #0078d4;
+      color: #fff;
+      padding: 8px 15px;
+      font-size: 16px;
+      font-weight: bold;
+      margin-top: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .section-title::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      transition: width 0.6s ease-out, height 0.6s ease-out;
+    }
+
+    .section-title:hover::before {
+      width: 300px;
+      height: 300px;
+    }
+
+    .section-title:hover {
+      background-color: #005a9e;
+      padding-left: 25px;
+    }
+
+    /* 模块内容区域 */
+    .section-content {
+      padding: 10px 20px;
+      font-size: 14px;
+      line-height: 1.8;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .section-content::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border: 1px solid rgba(0, 120, 212, 0.05);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+
+    .section-content:hover::before {
+      opacity: 1;
+    }
+
+    .section-content:hover {
+      background-color: #f9f9f9;
+    }
+
+    /* 教育背景、经历等条目 */
+    .item {
+      margin-bottom: 10px;
+      transition: transform 0.3s ease;
+    }
+
+    .item:hover {
+      transform: translateX(5px);
+    }
+
+    .item .time {
+      color: #666;
+      margin-right: 10px;
+    }
+
+    /* 技能、评价等段落 */
+    .skill-desc,
+    .eval-desc {
+      text-indent: 2em;
+      transition: all 0.3s ease;
+    }
+
+    /* 滚动动画元素 */
+    .animate-on-scroll {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+
+    .animate-on-scroll.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* 序列动画控制 */
+    .header.animate-on-scroll { animation-delay: 0.1s; }
+    .info-bar.animate-on-scroll { animation-delay: 0.2s; }
+    .section-title:nth-of-type(1).animate-on-scroll { animation-delay: 0.3s; }
+    .section-content:nth-of-type(1).animate-on-scroll { animation-delay: 0.4s; }
+    .section-title:nth-of-type(2).animate-on-scroll { animation-delay: 0.5s; }
+    .section-content:nth-of-type(2).animate-on-scroll { animation-delay: 0.6s; }
+    .section-title:nth-of-type(3).animate-on-scroll { animation-delay: 0.7s; }
+    .section-content:nth-of-type(3).animate-on-scroll { animation-delay: 0.8s; }
+    .section-title:nth-of-type(4).animate-on-scroll { animation-delay: 0.9s; }
+    .section-content:nth-of-type(4).animate-on-scroll { animation-delay: 1.0s; }
+    .section-title:nth-of-type(5).animate-on-scroll { animation-delay: 1.1s; }
+    .section-content:nth-of-type(5).animate-on-scroll { animation-delay: 1.2s; }
+  </style>
+</head>
+
+<body>
+  <!-- 简历整体容器 -->
+  <div class="resume-container">
+    <!-- 头部：头像、姓名、求职意向、简历按钮 -->
+    <div class="header animate-on-scroll">
+      <div class="avatar">
+        <!-- 替换为实际头像地址，若没有可删除 img 标签，保留占位 -->
+        <img src="./证件照.jpg" alt="头像">
+      </div>
+      <div class="name-info">
+        <h1>林潼恩</h1>
+        <div class="job-intent">求职意向：实习生</div>
+      </div>
+      <a href="#" class="resume-btn"><h1>个人简历</h1></a>
+    </div>
+
+    <!-- 个人信息栏 -->
+    <div class="info-bar animate-on-scroll">
+      <div class="left-column">
+        <div class="info-item">
+          <i>&#9711;</i>生日：2003.9.10
+        </div>
+        <div class="info-item">
+          <i>&#9962;</i>住址：广州省广州市
+        </div>
+      </div>
+      <div class="right-column">
+        <div class="info-item">
+          <i>&#9993;</i>邮箱：2456563@QQ.COM
+        </div>
+        <div class="info-item">
+          <i>&#9742;</i>电话：13580111111
+        </div>
+      </div>
+    </div>
+
+    <!-- 教育背景 -->
+    <div class="section-title animate-on-scroll">教育背景</div>
+    <div class="section-content animate-on-scroll">
+      <div class="item">
+        <span class="time">2020.09-2024.06</span>深圳职业技术大学 通信软件专业 专科
+      </div>
+      <p>主修课程：通信原理、C/C++ 程序设计、JAVA 开发、数据结构、计算机网络、单片机技术、5G 技术基础、软件测试基础、PYTHON 自动化脚本开发。</p>
+    </div>
+
+    <!-- 校园经历 -->
+    <div class="section-title animate-on-scroll">校园经历</div>
+    <div class="section-content animate-on-scroll">
+      <div class="item">
+        <span class="time">2022.09-2023.06</span>学校通信技术协会 技术部干事
+      </div>
+      <p>参与组织“校园网络优化大赛”，负责搭建模拟通信基站环境，协助 30 + 同学完成网络故障排查实验；</p>
+      <p>主导开发班级通信原理学习小程序（JAVA + MYSQL），实现知识点整理与在线测试功能，用户活跃度 80%。</p>
+      <div class="item" style="margin-top: 10px;">
+        <span class="time">2021.09-2022.06</span>软件项目实践小组 组长
+      </div>
+      <p>带领 3 人团队完成“智能家居通信控制”课程项目，设计基于 WI-FI 与蓝牙的设备互联方案，获课程设计大赛二等奖；负责需求分析、代码框架搭建及通信协议调试，实现手机 APP 与传感器的数据交互。</p>
+    </div>
+
+    <!-- 实习经历 -->
+    <div class="section-title animate-on-scroll">实习经历</div>
+    <div class="section-content animate-on-scroll">
+      <div class="item">
+        <span class="time">2023.07-2023.09</span>深圳一加通信技术有限公司 技术支持实习生
+      </div>
+      <p>参与 5G 基站调试工作，协助工程师完成传输链路配置，排查无线信号干扰问题 8 例，编写《基站故障处理手册》；</p>
+      <p>开发 PYTHON 脚本自动化检测用户端网络状态，提升故障定位效率 40%，减少人工巡检耗时。</p>
+    </div>
+
+    <!-- 技能证书 -->
+    <div class="section-title animate-on-scroll">技能证书</div>
+    <div class="section-content skill-desc animate-on-scroll">
+      <p>对通信软件技术有扎实兴趣，熟悉通信协议与软件开发流程，具备独立分析问题与落地解决方案的能力。</p>
+      <p>曾主导校园技术项目，擅长团队协作与跨部门沟通，能快速理解业务需求并推动项目落地。</p>
+      <p>持续关注 5G、物联网等技术前沿，自主学习 PYTHON 自动化测试工具（如 PYTEST），具备较强的技术迭代能力。</p>
+    </div>
+
+    <!-- 自我评价 -->
+    <div class="section-title animate-on-scroll">自我评价</div>
+    <div class="section-content eval-desc animate-on-scroll">
+      <p>对通信软件技术有扎实兴趣，熟悉通信协议与软件开发流程，具备独立分析问题与落地解决方案的能力。</p>
+      <p>曾主导校园技术项目，擅长团队协作与跨部门沟通，能快速理解业务需求并推动项目落地。</p>
+      <p>持续关注 5G、物联网等技术前沿，自主学习 PYTHON 自动化测试工具（如 PYTEST），具备较强的技术迭代能力。</p>
+    </div>
+  </div>
+
+  <script>
+    // 滚动动画
+    document.addEventListener('DOMContentLoaded', function() {
+      const animateElements = document.querySelectorAll('.animate-on-scroll');
+      
+      function checkScroll() {
+        animateElements.forEach(element => {
+          const elementTop = element.getBoundingClientRect().top;
+          const elementVisible = 150;
+          
+          if (elementTop < window.innerHeight - elementVisible) {
+            element.classList.add('visible');
+          }
+        });
+      }
+      
+      // 初始检查
+      checkScroll();
+      
+      // 滚动时检查
+      window.addEventListener('scroll', checkScroll);
+    });
+  </script>
+</body>
+
+</html>
